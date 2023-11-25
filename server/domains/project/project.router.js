@@ -13,12 +13,16 @@ import projectValidator from './project.validator';
 const router = new Router();
 
 // Enrutamos
-// GET '/project/'
-// GET '/project/dashboard'
-router.get(['/', '/dashboard'], projectController.showDashboard);
-// GET '/project/add-form'
+
+// GET '/project/addForm'
 // GET '/project/add'
-router.get(['/add-form', '/add'], projectController.addForm);
+// GET '/project'
+router.get(['/', '/addForm', '/add'], projectController.addForm);
+
+// GET '/project/showDashboard'
+// GET '/project/projects'
+router.get(['/showDashboard', '/projects'], projectController.showDashboard);
+
 // POST "/project/add"
 router.post(
   '/add',
