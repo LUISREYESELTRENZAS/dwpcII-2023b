@@ -25,6 +25,17 @@ router.get(['/showDashboard', '/projects'], projectController.showDashboard);
 
 // GET "/project/edit/:id"
 router.get('/edit/:id', projectController.edit);
+
+// PUT "/project/edit/:id"
+router.put(
+  '/edit/:id',
+  ValidateFactory({
+    schema: projectValidator.projectSchema,
+    getObject: projectValidator.getProject,
+  }),
+  projectController.editPut,
+);
+
 // POST "/project/add"
 router.post(
   '/add',
@@ -34,6 +45,9 @@ router.post(
   }),
   projectController.addPost,
 );
+
+// DELETE "/project/:id"
+router.delete('/:id', projectController.deleteProject);
 
 // Exporto este tramo de ruta
 export default router;
