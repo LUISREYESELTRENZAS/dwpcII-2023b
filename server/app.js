@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 // Enable post and delete verbs
 import methodOverride from 'method-override';
+
 // Setting Webpack Modules
 import webpack from 'webpack';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
@@ -16,6 +17,9 @@ import configTemplateEngine from './config/templateEngine';
 
 // Importing webpack configuration
 import webpackConfig from '../webpack.dev.config';
+
+// Importando configurador de sesiones
+import configSession from './config/configSessions';
 
 // Impornting winston logger
 import log from './config/winston';
@@ -86,6 +90,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // Enable post and delete verbs
 app.use(methodOverride('_method'));
+// Habilitando manejo de sesiones y mensajes flash
+configSession(app);
 // Crea un server de archivos estaticos
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
