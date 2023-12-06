@@ -7,17 +7,24 @@ import homeRouter from './domains/home/home.router';
 import userRouter from './domains/user/user.router';
 import projectRouter from './domains/project/project.router';
 
+// Importando el factory de autorizacion
+import AuthFactory from './services/authorizationFactory';
+
 // Función que agrega rutas
 const addRoutes = (app) => {
   // Agregando enrutado de Home
   app.use('/', homeRouter);
   app.use('/user', userRouter);
-  app.use('/project', projectRouter);
+  app.use(
+    '/project', // Autorizando ruta solo con usuarios logueados
+    AuthFactory('user'),
+    projectRouter,
+  );
 
   // ERRORES
   // catch 404 and forward to error handler
   app.use((req, res, next) => {
-    log.info(`404 Pagina no encontrada ${req.method} ${req.originalUrl}`);
+    log.info(` 404 Pagina no encontrada ${req.method} ${req.originalUrl}`);
     next(createError(404));
   });
 
@@ -29,7 +36,7 @@ const addRoutes = (app) => {
 
     // render the error page
     res.status(err.status || 500);
-    log.error(`${err.status || 500} - ${err.message}`);
+    log.error(` ${err.status || 500} - ${err.message}`);
     res.render('error');
   });
 
