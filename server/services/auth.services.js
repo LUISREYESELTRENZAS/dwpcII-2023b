@@ -55,7 +55,7 @@ const localStrategy = new LocalStrategy(
       // argumento el usuario
       return done(null, user);
     } catch (error) {
-      log.error(🚨 ${error.message});
+      log.error(` 🚨 ${error.message}`);
       return done(error, false);
     }
   },
@@ -73,7 +73,7 @@ passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
     done(null, user);
   } catch (error) {
-    log.error(🚨 ${error.message});
+    log.error(` 🚨 ${error.message}`);
     done(error, null);
   }
 });
