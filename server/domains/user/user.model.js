@@ -13,10 +13,11 @@ const { Schema } = mongoose;
 // 3. Creando el esquema
 const UserSchema = new Schema(
   {
-    firstName: { type: String, required: true },
-    lastname: { type: String, required: true },
+    firstName: { type: String, required: true, lowercase: true },
+    lastname: { type: String, required: true, lowercase: true },
     mail: {
       type: String,
+      lowercase: true,
       unique: true,
       required: [true, 'Es necesario ingresar email'],
       validate: {
