@@ -21,6 +21,15 @@ const register = (req, res) => {
   res.render('user/register');
 };
 
+// GET user/confirm/<token>
+const confirm = (req, res) => {
+  // Extrayendo datos de validación
+  const { validData, errorData } = req;
+  if (errorData) return res.json(errorData);
+  const { token } = validData;
+  return res.send(` Token valido: ${token}`);
+};
+
 // POST '/user/register'
 const registerPost = async (req, res) => {
   const { validData: userFormData, errorData } = req;
@@ -58,4 +67,5 @@ export default {
   logout,
   register,
   registerPost,
+  confirm,
 };
