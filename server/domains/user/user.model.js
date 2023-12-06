@@ -68,7 +68,7 @@ UserSchema.methods = {
   },
   // Genera un token de 64 caracteres aleatorios
   generateConfirmationToken() {
-    return crypto.randomBytes(64).toString('hex');
+    return crypto.randomBytes(32).toString('hex');
   },
   // Funcion de tranformacion a Json personalizada
   toJSON() {
@@ -84,6 +84,22 @@ UserSchema.methods = {
       updatedAt: this.updatedAt,
     };
   },
+
+  // Metodo para activar el usuario
+  async activate() {
+    await this.updateOne({
+      emailConfirmationToken: null,
+      // updatedAt: new Date(),
+      emailConfirmationAt: new Date(),
+    }).exec();
+  },
+};
+
+// Statics Methods
+UserSchema.statics.findByToken = async function findByToken(token) {
+  // "this" hace referencia al modelo es decir
+  // a todo el conjunto de documentos
+  return this.findOne({ emailConfirmationToken: token });
 };
 
 // Hooks
