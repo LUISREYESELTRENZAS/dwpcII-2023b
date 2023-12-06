@@ -89,6 +89,8 @@ UserSchema.pre('save', function presave(next) {
   if (this.isModified('password')) {
     this.password = this.hashPassword();
   }
+  // Creando el token de confirmacion
+  this.emailConfirmationToken = this.generateConfirmationToken();
   return next();
 });
 
