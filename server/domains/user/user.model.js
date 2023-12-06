@@ -113,7 +113,7 @@ UserSchema.post('save', async function sendConfirmationMail() {
 
   // Configuring mail data
   mailSender.mail = {
-    from: 'jorge.rr@gamadero.tecnm.mx',
+    from: 'dianaarroyo@gmail.com',
     to: this.mail,
     subject: 'Account confirmation',
   };
@@ -126,6 +126,7 @@ UserSchema.post('save', async function sendConfirmationMail() {
         lastname: this.lastname,
         mail: this.mail,
         token: this.emailConfirmationToken,
+        host: configKeys.APP_URL,
       },
       `
       Estimado ${this.firstName} ${this.lastname}  
